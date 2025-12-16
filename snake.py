@@ -21,7 +21,11 @@ class Snake:
         
         
     def update_direction(self, key):
-        
+        opposite = {"up":"down", "down":"up", "left":"right", "right":"left"}
+        if key not in ["up","down","left","right"]:
+            return
+        if key != opposite[self.direction]:
+            self.direction = key
         
     # Move snake one step to selected direction 
     def move(self, tail_addition = False):
@@ -70,11 +74,13 @@ class Game:
         self.score = score
         self.tail_addition = False
 
+
     def control_eat(self):
         # Check head location with food location to check if it ate the food
         if self.food.food_location == self.snake.body[0]:
             self.score += 1
-            self.tail_addition = True      
+            self.tail_addition = True
+
             while True:
                 self.food.random_location(self.map_width, self.map_height)
                 if self.food.food_location in self.snake.body:
@@ -82,6 +88,7 @@ class Game:
                 else:
                     break         
             return "food-eaten"
+        return None  
 
 
 

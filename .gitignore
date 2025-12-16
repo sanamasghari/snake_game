@@ -6,3 +6,5 @@ __pycache__/
 .venv/
 *.swp
 .DS_Store
+test.py
+game_venv/
