@@ -8,17 +8,18 @@ import random
 class Snake:
     # body: The coordinates of snake body 
     # direction: The movment direction of snake Up, Down, Left, Right
-    def __init__(self, body, direction):
+    def __init__(self, body=None, direction= None):
         self.body = body
         self.direction = direction
 
 
-    def check_direction(self, new_direction):
-        opposite_direction = {"up":"down", "down":"up", "right":"left", "left":"right"}
+    # def check_direction(self, new_direction):
+    #     opposite_direction = {"up":"down", "down":"up", "right":"left", "left":"right"}
         
-        if new_direction != opposite_direction[self.direction]:
-            self.direction = new_direction
-        
+    #     if new_direction != opposite_direction[self.direction]:
+    #         self.direction = new_direction
+
+
         
     def update_direction(self, key):
         opposite = {"up":"down", "down":"up", "left":"right", "right":"left"}
@@ -74,6 +75,12 @@ class Game:
         self.score = score
         self.tail_addition = False
 
+        
+    def initial_setting(self):
+        self.snake.body = [[7, 5], [7, 6], [7, 7]] 
+        self.snake.direction = "left"   
+        self.score = 0  
+        
 
     def control_eat(self):
         # Check head location with food location to check if it ate the food
