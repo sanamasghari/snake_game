@@ -12,14 +12,6 @@ class Snake:
         self.body = body
         self.direction = direction
 
-
-    # def check_direction(self, new_direction):
-    #     opposite_direction = {"up":"down", "down":"up", "right":"left", "left":"right"}
-        
-    #     if new_direction != opposite_direction[self.direction]:
-    #         self.direction = new_direction
-
-
         
     def update_direction(self, key):
         opposite = {"up":"down", "down":"up", "left":"right", "right":"left"}
