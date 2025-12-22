@@ -43,21 +43,23 @@ class Snake:
             
 
 class Food:
-    def __init__(self, food_location = None):
+    def __init__(self, food_location = None, selected_fruit=None):
         # location: coordinate of the food
         self.food_location = food_location
-
+        self.selected_fruit = selected_fruit
     # Choose random food location and put it on a coordinate of the map
     def random_location(self, map_width, map_height):
-        food_row = random.randint(0, map_width - 1)
-        food_col = random.randint(0, map_height - 1)
+        food_row = random.randint(0, map_height - 1)
+        food_col = random.randint(0, map_width - 1)
         
         self.food_location = [food_row, food_col]
 
+    def random_fruit(self, fruits):
+        self.selected_fruit = random.choice(fruits)
 
 class Game:
     #controls the Game logic
-    def __init__(self, board, snake, food, map_width, map_height, score = 0):
+    def __init__(self, board, snake, food, map_width, map_height, fruits, score = 0):
         self.board = board
         self.snake = snake
         self.food = food
@@ -66,6 +68,7 @@ class Game:
         self.map_height = map_height
         self.score = score
         self.tail_addition = False
+        self.fruits = fruits
 
         
     def initial_setting(self):
@@ -82,10 +85,12 @@ class Game:
 
             while True:
                 self.food.random_location(self.map_width, self.map_height)
+                self.food.random_fruit(self.fruits)
                 if self.food.food_location in self.snake.body:
                     continue
                 else:
-                    break         
+                    break    
+                     
             return "food-eaten"
         return None  
 
