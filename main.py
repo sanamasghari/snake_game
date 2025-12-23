@@ -1,9 +1,6 @@
-from snake import Snake, Food, Game
 from handle import draw_fruit, draw_board, draw_game_over, draw_menu, draw_snake, add_text, read_high_score, load_images
+from snake import Snake, Food, Game
 import pygame
-import shelve
-import random
-
 
         
 def main():
@@ -25,8 +22,6 @@ def main():
     
     images = load_images(map_width, map_height, unit)  
     
-
-        
     #initial snake location:
     snake_body = [[7, 5], [7, 6], [7, 7]] 
     snake_direction = "left" 
@@ -36,8 +31,6 @@ def main():
     fruit = Food()
     fruit.random_location(map_width, map_height)
     fruit.random_fruit(images[2])
-    # while apple.food_location in snake_body:
-    #     apple.random_location(map_width, map_height)
 
     #initialize Game
     game = Game(board, snake, fruit, map_width, map_height, images[2])
@@ -54,9 +47,8 @@ def main():
 
     running = True
     game_start = False
-    game_over_music_played = False
-            
-            
+    game_over_music_played = False   
+
     while running:
                 
         for event in pygame.event.get():
@@ -64,11 +56,10 @@ def main():
                 running = False
                 
             elif event.type == pygame.KEYDOWN:   
-                      
                 if event.key == pygame.K_ESCAPE:
                     running = False
                     
-                if event.key == pygame.K_r and game.game_over:
+                if event.key == pygame.K_RETURN and game.game_over:
                     game_start = True
                     game.game_over = False
                     game_over_music_played = False
