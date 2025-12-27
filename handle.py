@@ -6,6 +6,7 @@ This file consists features and rendering of pygame and graphic design.
 import pygame
 import shelve
 
+ 
 
 def read_high_score():
     # Read High score From file
@@ -77,7 +78,7 @@ def draw_board(screen, map_width, map_height, unit, game):
     add_text(screen, f'Score:{game.score}', "freesansbold.ttf", 32, (80,80,80), 10, map_height*unit + 10)
 
 
-      
+       
 def draw_snake(screen, snake,game, head_img, unit):
     head_angle = {"down": 0, "right":90, "up":180, "left": 270}
     snake_direction = game.snake.direction
@@ -94,8 +95,9 @@ def draw_snake(screen, snake,game, head_img, unit):
 def draw_fruit(screen, fruit, unit):
     fruit_row, fruit_col = fruit.food_location
     screen.blit(fruit.selected_fruit, (fruit_col*unit + 1 ,fruit_row*unit+1))
-
-
+ 
+ 
+ 
 def load_images(map_width, map_height, unit):
     
     welcome_page = pygame.image.load('images/welcome.jpg')
@@ -143,3 +145,14 @@ def load_images(map_width, map_height, unit):
     fruits = [apple_img, banana_img, blueberry_img, carrot_img, grapes_img, orange_img, avacado_img, pineapple_img, rasberry_img, strawberry_img, tomato_img, coconut_img]
 
     return [welcome_page, head_img, fruits]
+
+ 
+def load_sounds(sound):
+    if sound == "eating_sound":
+        eating_sound = pygame.mixer.Sound('sounds/apple_crunch.wav')
+        eating_sound.play()
+    elif sound == "game-over":
+        pygame.mixer.music.load('sounds/Game-Over.mp3')
+        pygame.mixer.music.play()
+     
+ 

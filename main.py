@@ -1,24 +1,21 @@
-from handle import draw_fruit, draw_board, draw_game_over, draw_menu, draw_snake, add_text, read_high_score, load_images
+from handle import  draw_menu, draw_game_over, draw_board, draw_snake, draw_fruit, read_high_score, load_images, load_sounds
 from snake import Snake, Food, Game
 import pygame
+import shelve
 
-        
+map_width = 17
+map_height = 17
+unit = 50
+  
 def main():
     # pygame setup
     pygame.init()
     pygame.mixer.init()
-    
-    map_width = 17
-    map_height = 17
-    unit = 50
 
     screen = pygame.display.set_mode((map_width*unit, (map_height+1)*unit))
     clock = pygame.time.Clock()
 
     board = [[0 for _ in range(map_width)] for _ in range(map_height)]
-    
-    eating_sound = pygame.mixer.Sound('sounds/apple_crunch.wav')
-    pygame.mixer.music.load('sounds/Game-Over.mp3')
     
     images = load_images(map_width, map_height, unit)  
     
@@ -40,7 +37,6 @@ def main():
                     pygame.K_RIGHT: "right",
                     pygame.K_LEFT: "left"
                     }
-
 
     move_timer = 0
     move_delay = 200
@@ -85,8 +81,8 @@ def main():
 
                 if game.control_eat() == "food-eaten":
                     game.tail_addition = True
-                    eating_sound.play()
-                
+                    load_sounds("eating_sound")
+
                 snake.move(tail_addition=game.tail_addition)
                 game.tail_addition = False  
                 
@@ -95,7 +91,7 @@ def main():
                 
             if game.game_over:
                 if not game_over_music_played:
-                    pygame.mixer.music.play(0)
+                    load_sounds("game-over")
                     game_over_music_played = True
                     
                 draw_game_over(screen, map_width, map_height, unit, game)
@@ -111,6 +107,28 @@ def main():
             clock.tick(8)
 
     pygame.quit()
-            
+
+
+def head_angle(direction):
+    angles = {"down": 0, "right":90, "up":180, "left": 270}
+    return angles[direction]
+
+def vali_snake_direction(direction):
+    if direction in ['up', 'down', 'right', 'down']:
+        return True
+    else:
+        return False
+
+def valid_fruit_location(food_row, food_col):    
+    if food_row > map_height or food_col > map_width:
+        return "out side of the map"
+    
+    elif food_row == map_height or food_col == map_width:
+        return "food is on the margin"
+
+    else:
+        return "right place"
+
+
 if __name__ == "__main__":
     main()
